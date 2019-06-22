@@ -14,7 +14,7 @@ class TodoListViewController: UITableViewController{
 
     var itemArry = [Item]()
    
-    var defaults = UserDefaults.standard
+//    var defaults = UserDefaults.standard
     
      let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
   
@@ -22,24 +22,24 @@ class TodoListViewController: UITableViewController{
         super.viewDidLoad()
     
     
-        let newItem = Item()
-        newItem.titel = "find Malik"
-     
-        itemArry.append(newItem)
+//        let newItem = Item()
+//        newItem.titel = "find Malik"
+//     
+//        itemArry.append(newItem)
+//        
+//        let newItem2 = Item()
+//        newItem2.titel = "find me"
+//        itemArry.append(newItem2)
+//        
+//        let newItem3 = Item()
+//        newItem3.titel = "find you"
+//        itemArry.append(newItem3)
         
-        let newItem2 = Item()
-        newItem2.titel = "find me"
-        itemArry.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.titel = "find you"
-        itemArry.append(newItem3)
-        
-        
-        if  let items = defaults.array(forKey: "itemName") as? [Item]{
-
-            itemArry = items
-        }
+        loadItems()
+//        if  let items = defaults.array(forKey: "itemName") as? [Item]{
+//
+//            itemArry = items
+//        }
     }
     
     // TabelView DataSours Methods
@@ -75,11 +75,15 @@ class TodoListViewController: UITableViewController{
       let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (alert) in
             let newItem = Item()
+            
             newItem.titel = textField.text!
             
-            self.defaults.set(self.itemArry, forKey: "itemName")
+         //   self.defaults.set(self.itemArry, forKey: "itemName")
+            
             self.itemArry.append(newItem)
-          self.saveItem()
+            
+            self.saveItem()
+            
         }
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "ADD NEW ITEM"
@@ -101,6 +105,18 @@ class TodoListViewController: UITableViewController{
         }
         tableView.reloadData()
         
+        
+    }
+    func loadItems(){
+        if let data = try? Data(contentsOf: dataFilePath!){
+            let decoder = PropertyListDecoder()
+            do{
+                itemArry = try decoder.decode([Item].self, from: data)
+            }
+            catch{
+                print("decoder Error \(error)")
+            }
+        }
         
     }
 }
