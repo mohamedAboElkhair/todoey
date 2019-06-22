@@ -8,10 +8,10 @@
 
 import UIKit
 
-class TodoListViewController: UITableViewController{
+class MTodoListViewController: UITableViewController{
     
     
-
+    
     var itemArry = ["findMaik", "Buy Eggas","Dester Deam "]
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ class TodoListViewController: UITableViewController{
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
             
         }else{
-              tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
     }
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
@@ -45,17 +45,17 @@ class TodoListViewController: UITableViewController{
         var textfield = UITextField()
         let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-           self.itemArry.append(textfield.text!)
+            self.itemArry.append(textfield.text!)
             self.tableView.reloadData()
             
         }
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create New Item"
-           textfield = alertTextField
+            textfield = alertTextField
         }
         alert.addAction(action)
-       present(alert,animated: true,completion: nil)
+        present(alert,animated: true,completion: nil)
         
     }
 }
