@@ -13,6 +13,13 @@ class TodoListViewController: UITableViewController{
     
      //MARK: -  Var Item Array
     var itemArry = [Item]()
+    var selectedCategory : Categorie?{
+        didSet{
+             loadItems()
+        }
+    }
+    
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
@@ -20,7 +27,7 @@ class TodoListViewController: UITableViewController{
         
     print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     
-      loadItems()
+     
 
     }
     
@@ -61,6 +68,7 @@ class TodoListViewController: UITableViewController{
             let newItem = Item(context: self.context)
             newItem.title = textField.text!
             newItem.done = false
+            newItem.parentCategorie = self.selectedCategory
             self.itemArry.append(newItem)
             self.saveItem()
         }
