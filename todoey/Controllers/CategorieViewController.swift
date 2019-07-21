@@ -19,6 +19,8 @@ class CategorieViewController: UITableViewController {
         
         super.viewDidLoad()
             loadCategorie()
+        
+        
     }
 
     // MARK: - Table view data source
